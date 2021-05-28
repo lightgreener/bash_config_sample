@@ -59,12 +59,12 @@ EOF
 fi
 
 
-# 8, Minimize the use of swap
+# 9, Minimize the use of swap
 # sofe disk and it slows down. 
 echo "0" > /proc/sys/vm/swappiness
 
 
-# 9, System kernel parameter optimization
+# 10, System kernel parameter optimization
 cat >> /etc/systcl.conf << EOF
 	net.ipv4.tcp_syncookies = 1
 	net.ipv4.tcp_max_tw_buckets = 20480
@@ -74,6 +74,6 @@ cat >> /etc/systcl.conf << EOF
 EOF
 
 
-# 10, Install some system test tools
+# 11, Install some system test tools
 yum install gcc make autoconf sysstat net-tools iostat iftop iotp lrzsz -y
 

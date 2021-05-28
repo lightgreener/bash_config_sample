@@ -7,6 +7,7 @@ Requires:
 2, Disable selinux (selinux is secure linux), it may cause some error if you are not fimiliar with it
 3, Clear firewall default policy
 4, Show the time of history commands 
+5, SSH Set time out
 5, Disable remote login for root
 6, Disable scheduled tasks to send emails
 7, Set the maximum number of open files
