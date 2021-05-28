@@ -49,9 +49,31 @@ sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 # /etc/crontab  some junk mail stored
 sed -i 's/^MAILTO=root/MAILTO=""/' /etc/crontab 
 
-7, Set the maximum number of open files
-8, Minimize the use of swap
-9, System kernel parameter optimization
-10, Install some system test tools
+# 8, Set the maximum number of files which can open at the same time
+# cat EOF should be in the left
+if ! grep "* soft nofile 65535" /etc/security/limits.conf &>/dev/null ; then
+	cat >> /etc/security/limits.conf << EOF
+	* soft nofile 65535
+	* hard nofile 65535
+EOF
+fi
 
+
+# 8, Minimize the use of swap
+# sofe disk and it slows down. 
+echo "0" > /proc/sys/vm/swappiness
+
+
+# 9, System kernel parameter optimization
+cat >> /etc/systcl.conf << EOF
+	net.ipv4.tcp_syncookies = 1
+	net.ipv4.tcp_max_tw_buckets = 20480
+	net.core.netdev_max_backlog = 262144
+	net.ipv4.tcp_max_syn_backlog = 20480
+	net.ipv4.tcp_fin_timeout = 20
+EOF
+
+
+# 10, Install some system test tools
+yum install gcc make autoconf sysstat net-tools iostat iftop iotp lrzsz -y
 
